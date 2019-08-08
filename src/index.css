@@ -1,0 +1,63 @@
+html {
+  height: 100%;
+}
+
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  background-image: linear-gradient(#BE3144, #303841, #3A4750);
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+input {
+  border: none;
+  background-color: rgba(0,0,0,0.0);
+  color: #f05167;
+  text-shadow: 2px 2px #3A4750;
+  font-family: Roboto, Arial, serif;
+  font-weight: 300;
+  font-size: 96px;
+  min-width: 400px;
+  max-width: 400px;
+  text-align: center;
+}
+
+input:focus {
+  outline: 0;
+}
+
+input[type=time]::-webkit-datetime-edit-ampm-field {
+  display: none;
+}
+
+input[type=time]::-webkit-clear-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance:none;
+  appearance: none;
+  margin: -10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+table {
+  margin: 0 auto;
+  min-width: 400px;
+  max-width: 800px;
+}
+
+#root {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+/* vim: set ts=2 sw=2 et: */
