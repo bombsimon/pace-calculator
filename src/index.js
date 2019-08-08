@@ -66,14 +66,27 @@ class ResultTable extends React.Component {
 
     const [hour, minute, second] = time.split(":");
 
+    // Convert minutes and seconds to decimal values (30 min = 0.5 h)
     const fractionOfMinute = Number(second) / 60;
     const fractionOfHour = (parseFloat(minute) + fractionOfMinute) / 60;
     const hoursWithFraction = Number(hour) + fractionOfHour;
 
+    // Calculate and round speed (v = s/t)
     const speed = distance / hoursWithFraction;
-    const pace = (hoursWithFraction / distance) * 60;
+    const speedRounded = parseFloat(speed).toFixed(2);
 
-    return { speed, pace };
+    // Calculate pace (p = t/s) and convert the decimal value to readable
+    // minutes. Pace 4,5 => 4m30s.
+    const pace = (hoursWithFraction / distance) * 60;
+    const paceWithoutFraction = parseInt(pace / 1, 10);
+
+    const paceFraction = pace % 1;
+    const roundedFractions = String(Math.round(paceFraction * 60));
+    const fractionAsSeconds = roundedFractions.padStart(2, "0");
+
+    const paceInTime = `${paceWithoutFraction}:${fractionAsSeconds}`;
+
+    return { speed: speedRounded, pace: paceInTime };
   }
 
   render() {
@@ -96,14 +109,14 @@ class ResultTable extends React.Component {
         <li className="calcrow">
           <div className="calcprop">Speed</div>
           <div className="calcdata">
-            {parseFloat(speedAndPace.speed).toFixed(2)}{" "}
+            {speedAndPace.speed}
             <span className="calcunit">km/h</span>
           </div>
         </li>
         <li className="calcrow">
           <div className="calcprop">Pace</div>
           <div className="calcdata">
-            {parseFloat(speedAndPace.pace).toFixed(2)}{" "}
+            {speedAndPace.pace}
             <span className="calcunit">min/km</span>
           </div>
         </li>
