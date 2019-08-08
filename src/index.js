@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TimeField from 'react-simple-timefield';
-import './index.css';
+import './css/main.css';
 
 class ConverterBar extends React.Component {
   constructor(props) {
@@ -22,12 +22,13 @@ class ConverterBar extends React.Component {
   render() {
     return (
       <div className="converter-bar">
-        <div claassName="field">
+        <div className="field">
           <label>Time (HH:MM:SS)</label>
           <TimeField
-              value={this.props.time}
-              onChange={this.handleTimeChange}
-              showSeconds
+           value={this.props.time}
+           onChange={this.handleTimeChange}
+           input={<input className="myClass" />}
+           showSeconds
           />
         </div>
 
@@ -66,24 +67,24 @@ class ResultTable extends React.Component {
     let speedAndPace = this.calculateSpeedAndPace();
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Distance</th>
-            <th>Speed</th>
-            <th>Pace</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{this.props.time}</td>
-            <td>{parseFloat(this.props.distance).toFixed(2)} km</td>
-            <td>{parseFloat(speedAndPace.speed).toFixed(2)} km/h</td>
-            <td>{parseFloat(speedAndPace.pace).toFixed(2)} min/km</td>
-          </tr>
-        </tbody>
-      </table>
+      <ul class="calc">
+        <li class="calcrow">
+          <div class="calcprop">Time</div>
+          <div class="calcdata">{this.props.time}</div>
+        </li>
+        <li class="calcrow">
+          <div class="calcprop">Distance</div>
+          <div class="calcdata">{parseFloat(this.props.distance).toFixed(2)} <span class="calcunit">km</span></div>
+        </li>
+        <li class="calcrow">
+          <div class="calcprop">Speed</div>
+          <div class="calcdata">{parseFloat(speedAndPace.speed).toFixed(2)} <span class="calcunit">km/h</span></div>
+        </li>
+        <li class="calcrow">
+          <div class="calcprop">Pace</div>
+          <div class="calcdata">{parseFloat(speedAndPace.pace).toFixed(2)} <span class="calcunit">min/km</span></div>
+        </li>
+      </ul>
     );
   }
 }
