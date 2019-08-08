@@ -81,24 +81,33 @@ class ResultTable extends React.Component {
     const { time, distance } = this.props;
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Distance</th>
-            <th>Speed</th>
-            <th>Pace</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{time}</td>
-            <td>{parseFloat(distance).toFixed(2)} km </td>
-            <td>{parseFloat(speedAndPace.speed).toFixed(2)} km/h</td>
-            <td>{parseFloat(speedAndPace.pace).toFixed(2)} min/km</td>
-          </tr>
-        </tbody>
-      </table>
+      <ul className="calc">
+        <li className="calcrow">
+          <div className="calcprop">Time</div>
+          <div className="calcdata">{time}</div>
+        </li>
+        <li className="calcrow">
+          <div className="calcprop">Distance</div>
+          <div className="calcdata">
+            {parseFloat(distance).toFixed(2)}{" "}
+            <span className="calcunit">km</span>
+          </div>
+        </li>
+        <li className="calcrow">
+          <div className="calcprop">Speed</div>
+          <div className="calcdata">
+            {parseFloat(speedAndPace.speed).toFixed(2)}{" "}
+            <span className="calcunit">km/h</span>
+          </div>
+        </li>
+        <li className="calcrow">
+          <div className="calcprop">Pace</div>
+          <div className="calcdata">
+            {parseFloat(speedAndPace.pace).toFixed(2)}{" "}
+            <span className="calcunit">min/km</span>
+          </div>
+        </li>
+      </ul>
     );
   }
 }
