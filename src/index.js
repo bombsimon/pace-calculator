@@ -7,8 +7,8 @@ class ConverterBar extends React.Component {
   constructor(props) {
     super(props);
 
-		this.handleChange = this.handleChange.bind(this);
-		this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
   handleChange(e) {
@@ -97,8 +97,8 @@ class PaceCalculator extends React.Component {
       time: "00:45:00"
     };
     
-	  this.handleChange = this.handleChange.bind(this);
-	  this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
   handleChange(e) {
