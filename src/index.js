@@ -35,7 +35,7 @@ class ConverterBar extends React.Component {
             <TimeField
               value={time}
               onChange={this.handleTimeChange}
-              input={<input id="time-input" />}
+              input={<input id="time-input" type="text" pattern="\d*" />}
               showSeconds
             />
           </label>
@@ -109,15 +109,13 @@ class ResultTable extends React.Component {
         <li className="calcrow">
           <div className="calcprop">Speed</div>
           <div className="calcdata">
-            {speedAndPace.speed}
-            <span className="calcunit">km/h</span>
+            {speedAndPace.speed} <span className="calcunit">km/h</span>
           </div>
         </li>
         <li className="calcrow">
           <div className="calcprop">Pace</div>
           <div className="calcdata">
-            {speedAndPace.pace}
-            <span className="calcunit">min/km</span>
+            {speedAndPace.pace} <span className="calcunit">min/km</span>
           </div>
         </li>
       </ul>
