@@ -3,14 +3,12 @@
 A small ReactJS application to calculate speed and pace based on time and
 distance.
 
-Demo can be found at [sawert.se/pace](https://sawert.se/pace).
+Demo can be found at [pace-calc.nu](https://pace-calc.nu).
 
 Nice looking layout with mobile support by
 [@jhornsten](https://github.com/jhornsten).
 
 ![screenshot](screenshot.png)
-
-![screenshot mobile](screenshot_mobile.png)
 
 ## Styling
 
@@ -19,4 +17,13 @@ built too `src/index.css`. Use your favorite `sass` tool and build.
 
 ```sh
 sass --no-source-map src/scss/main.scss src/index.css
+```
+
+## Hosting
+
+Just symlink Nginx config to your Nginx installation. Ensure certificates
+exsist.
+
+```sh
+sudo ln -s /opt/www/pace-calculator/nginx.conf /etc/nginx/sites-enabled/pace-calc.nu
 ```
