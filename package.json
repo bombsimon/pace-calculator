@@ -1,6 +1,6 @@
 {
   "name": "pace-calculator",
-  "homepage": "https://sawert.se/pace",
+  "homepage": "https://pace-calc.nu",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
