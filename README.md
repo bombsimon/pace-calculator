@@ -27,3 +27,15 @@ exsist.
 ```sh
 sudo ln -s /opt/www/pace-calculator/nginx.conf /etc/nginx/sites-enabled/pace-calc.nu
 ```
+
+### Google Cloud Run
+
+```sh
+# Build and push Docker image
+$ gcloud builds submit \
+  --tag gcr.io/zippy-cab-252712/pace-calculator
+
+# Deploy
+$ gcloud beta run deploy \
+  --image gcr.io/zippy-cab-252712/pace-calculator \
+  --platform managed
