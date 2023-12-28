@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
     "parserOptions": {
       "sourceType": "module",
       "allowImportExportEverywhere": false,
@@ -12,6 +12,7 @@
       "jest": true
     },
     "rules": {
+      "max-classes-per-file": ["error", 4],
       "max-len": ["error", {"code": 100}],
       "prefer-promise-reject-errors": ["off"],
       "react/jsx-filename-extension": ["off"],
@@ -19,9 +20,7 @@
       "no-return-assign": ["off"],
       "react/jsx-one-expression-per-line": ["off"],
       "jsx-a11y/label-has-for": ["off"],
-      "jsx-a11y/label-has-associated-control": [ 2, {
-        "controlComponents": ["TimeField"],
-        "depth": 2,
-      }]
+      "jsx-a11y/label-has-associated-control": ["off"],
+      "react/jsx-props-no-spreading": ["off"]
     }
 }

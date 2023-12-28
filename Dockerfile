@@ -1,4 +1,4 @@
-FROM node:17-alpine3.14 as build
+FROM node:20-alpine as build
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ COPY package.json ./
 COPY package-lock.json ./
 
 RUN npm ci --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+RUN npm install react-scripts@5.0.1 -g --silent
 
 COPY . ./
 RUN sass --no-source-map src/scss/main.scss src/index.css

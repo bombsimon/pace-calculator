@@ -10,13 +10,22 @@ Nice looking layout with mobile support by
 
 ![screenshot](screenshot.png)
 
-## Styling
+## Development
 
-The stylesheet is written in [SCSS](https://sass-lang.com/) and needs to be
-built too `src/index.css`. Use your favorite `sass` tool and build.
+Tested under `node` v20. Install all dependencies:
 
 ```sh
-sass --no-source-map src/scss/main.scss src/index.css
+npm install -D
+npm run start
+```
+
+### Styling
+
+The stylesheet is written in [SCSS](https://sass-lang.com/) and needs to be
+built too `src/index.css`.
+
+```sh
+./node_modules/sass/sass.js --no-source-map src/scss/main.scss src/index.css
 ```
 
 ## Hosting
@@ -39,3 +48,4 @@ $ gcloud builds submit \
 $ gcloud beta run deploy \
   --image gcr.io/zippy-cab-252712/pace-calculator \
   --platform managed
+```

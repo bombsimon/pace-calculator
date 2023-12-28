@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400&&display=swap');
-
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400&&display=swap");
 
 // Media Queries
 
@@ -21,7 +20,6 @@
   }
 }
 
-
 // Styles
 
 html {
@@ -29,11 +27,11 @@ html {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: rgba(0,0,0,.7);
-  background-color: #BE3144;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: #be3144;
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -55,12 +53,12 @@ body {
 }
 
 input {
-  background-color: rgba(0,0,0,.2);
-  font-family: 'Roboto', sans-serif;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-family: "Roboto", sans-serif;
   font-size: 80px;
   font-weight: 300;
   color: #f05167;
-  text-shadow: 2px 2px rgba(0,0,0,.3);
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
   text-align: center;
   border: none;
   border-radius: 20px;
@@ -80,15 +78,15 @@ input:focus {
   outline: 0;
 }
 
-input[type=time]::-webkit-datetime-edit-ampm-field {
+input[type="time"]::-webkit-datetime-edit-ampm-field {
   display: none;
 }
 
-input[type=time]::-webkit-clear-button {
+input[type="time"]::-webkit-clear-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
-  -ms-appearance:none;
+  -ms-appearance: none;
   appearance: none;
   margin: -10px;
 }
@@ -131,28 +129,31 @@ label {
 }
 
 .github-corner:hover .octo-arm {
-  animation:octocat-wave 560ms ease-in-out
+  animation: octocat-wave 560ms ease-in-out;
 }
 
 @keyframes octocat-wave {
-  0%,100% {
-    transform:rotate(0)
+  0%,
+  100% {
+    transform: rotate(0);
   }
-  20%,60%{
-    transform:rotate(-25deg)
+  20%,
+  60% {
+    transform: rotate(-25deg);
   }
-  40%,80% {
-    transform:rotate(10deg)
+  40%,
+  80% {
+    transform: rotate(10deg);
   }
 }
 
-@media (max-width:500px) {
+@media (max-width: 500px) {
   .github-corner:hover .octo-arm {
-    animation:none
+    animation: none;
   }
 
   .github-corner .octo-arm {
-    animation:octocat-wave 560ms ease-in-out
+    animation: octocat-wave 560ms ease-in-out;
   }
 }
 

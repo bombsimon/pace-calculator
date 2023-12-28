@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import TimeField from "react-simple-timefield";
 import PropTypes from "prop-types";
 import { Slider, Rail, Handles, Tracks } from "react-compound-slider";
@@ -14,29 +14,29 @@ class ConverterBar extends React.Component {
     this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
-  onUpdate = update => {
-    const { onDistanceChange } = this.props;
-
-    onDistanceChange(update[0]);
-  };
-
-  onChange = values => {
-    const { onDistanceChange } = this.props;
-
-    onDistanceChange(values[0]);
-  };
-
   handleDistanceChange(evt) {
     const { onDistanceChange } = this.props;
 
     onDistanceChange(evt.target.value);
   }
 
-  handleTimeChange(time) {
+  handleTimeChange(_event, time) {
     const { onTimeChange } = this.props;
 
     onTimeChange(time);
   }
+
+  onUpdate = (update) => {
+    const { onDistanceChange } = this.props;
+
+    onDistanceChange(update[0]);
+  };
+
+  onChange = (values) => {
+    const { onDistanceChange } = this.props;
+
+    onDistanceChange(values[0]);
+  };
 
   render() {
     const { time, distance } = this.props;
@@ -78,7 +78,7 @@ class ConverterBar extends React.Component {
             rootStyle={{
               position: "relative",
               width: "100%",
-              touchAction: "none"
+              touchAction: "none",
             }}
             onUpdate={this.onUpdate}
             onChange={this.onChange}
@@ -90,7 +90,7 @@ class ConverterBar extends React.Component {
             <Handles>
               {({ handles, activeHandleID, getHandleProps }) => (
                 <div className="slider-handles">
-                  {handles.map(handle => (
+                  {handles.map((handle) => (
                     <Handle
                       key={handle.id}
                       handle={handle}
@@ -198,7 +198,7 @@ class PaceCalculator extends React.Component {
 
     this.state = {
       distance: 7.5,
-      time: "00:45:00"
+      time: "00:45:00",
     };
 
     this.handleDistanceChange = this.handleDistanceChange.bind(this);
@@ -224,6 +224,7 @@ class PaceCalculator extends React.Component {
   }
 
   handleTimeChange(time) {
+    console.log(time);
     this.setState({ time });
   }
 
@@ -248,26 +249,29 @@ ConverterBar.propTypes = {
   time: PropTypes.string,
   distance: PropTypes.number,
   onDistanceChange: PropTypes.func,
-  onTimeChange: PropTypes.func
+  onTimeChange: PropTypes.func,
 };
 
 ConverterBar.defaultProps = {
   time: "",
   distance: 0.0,
   onDistanceChange: () => undefined,
-  onTimeChange: () => undefined
+  onTimeChange: () => undefined,
 };
 
 ResultTable.propTypes = {
   time: PropTypes.string,
-  distance: PropTypes.number
+  distance: PropTypes.number,
 };
 
 ResultTable.defaultProps = {
   time: "",
-  distance: 0
+  distance: 0,
 };
 
-ReactDOM.render(<PaceCalculator />, document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+root.render(<PaceCalculator />);
 
 // vim: set ts=2 sw=2 et:

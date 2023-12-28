@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 export function SliderRail({ getRailProps }) {
   return (
-    <Fragment>
+    <>
       <div
         style={{
           position: "absolute",
@@ -11,7 +11,7 @@ export function SliderRail({ getRailProps }) {
           width: "100%",
           height: 42,
           borderRadius: 7,
-          cursor: "pointer"
+          cursor: "pointer",
         }}
         {...getRailProps()}
       />
@@ -23,21 +23,25 @@ export function SliderRail({ getRailProps }) {
           transform: "translate(0%, -50%)",
           borderRadius: 7,
           pointerEvents: "none",
-          backgroundColor: "#f05167"
+          backgroundColor: "#f05167",
         }}
       />
-    </Fragment>
+    </>
   );
 }
 
 SliderRail.propTypes = {
-  getRailProps: PropTypes.func.isRequired
+  getRailProps: PropTypes.func.isRequired,
 };
 
 export class Handle extends Component {
-  state = {
-    mouseOver: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      mouseOver: false,
+    };
+  }
 
   onMouseEnter = () => {
     this.setState({ mouseOver: true });
@@ -53,19 +57,19 @@ export class Handle extends Component {
       handle: { id, value, percent },
       isActive,
       disabled,
-      getHandleProps
+      getHandleProps,
     } = this.props;
     const { mouseOver } = this.state;
 
     return (
-      <Fragment>
+      <>
         {(mouseOver || isActive) && !disabled ? (
           <div
             style={{
               left: `${percent}%`,
               position: "absolute",
               marginLeft: "-11px",
-              marginTop: "-35px"
+              marginTop: "-35px",
             }}
           />
         ) : null}
@@ -79,11 +83,11 @@ export class Handle extends Component {
             width: 26,
             height: 42,
             cursor: "pointer",
-            backgroundColor: "none"
+            backgroundColor: "none",
           }}
           {...getHandleProps(id, {
             onMouseEnter: this.onMouseEnter,
-            onMouseLeave: this.onMouseLeave
+            onMouseLeave: this.onMouseLeave,
           })}
         />
         <div
@@ -91,6 +95,7 @@ export class Handle extends Component {
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={value}
+          aria-label="Slider"
           style={{
             left: `${percent}%`,
             position: "absolute",
@@ -102,10 +107,10 @@ export class Handle extends Component {
             border: 0,
             borderRadius: "50%",
             boxShadow: "1px 1px 1px 1px rgba(0, 0, 0, 0.2)",
-            backgroundColor: disabled ? "#666" : "#982736"
+            backgroundColor: disabled ? "#666" : "#982736",
           }}
         />
-      </Fragment>
+      </>
     );
   }
 }
@@ -115,15 +120,15 @@ Handle.propTypes = {
   handle: PropTypes.shape({
     id: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired
+    percent: PropTypes.number.isRequired,
   }).isRequired,
   getHandleProps: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 Handle.defaultProps = {
-  disabled: false
+  disabled: false,
 };
 
 export function Track({ source, target, getTrackProps, disabled }) {
@@ -138,7 +143,7 @@ export function Track({ source, target, getTrackProps, disabled }) {
         borderRadius: 7,
         cursor: "pointer",
         left: `${source.percent}%`,
-        width: `${target.percent - source.percent}%`
+        width: `${target.percent - source.percent}%`,
       }}
       {...getTrackProps()}
     />
@@ -149,17 +154,17 @@ Track.propTypes = {
   source: PropTypes.shape({
     id: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired
+    percent: PropTypes.number.isRequired,
   }).isRequired,
   target: PropTypes.shape({
     id: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired
+    percent: PropTypes.number.isRequired,
   }).isRequired,
   getTrackProps: PropTypes.func.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 Track.defaultProps = {
-  disabled: false
+  disabled: false,
 };
