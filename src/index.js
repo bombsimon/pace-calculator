@@ -7,11 +7,51 @@ import { SliderRail, Handle, Track } from "./slider";
 import "./index.css";
 
 class ConverterBar extends React.Component {
+  static paceToSpeed(paceString) {
+    const paceParts = paceString.split(":");
+
+    if (paceParts.length !== 2) {
+      return "N/A";
+    }
+
+    const minutes = parseFloat(paceParts[0]);
+    const seconds = parseFloat(paceParts[1]);
+
+    if (
+      Number.isNaN(minutes) ||
+      Number.isNaN(seconds) ||
+      seconds >= 60 ||
+      seconds < 0
+    ) {
+      return "N/A";
+    }
+
+    const paceInHours = minutes / 60 + seconds / 3600;
+    const speed = 1 / paceInHours;
+
+    return speed.toFixed(2); // Round to two decimal places
+  }
+
+  static speedToPace(speedKmPerHour) {
+    if (speedKmPerHour <= 0) {
+      return "N/A";
+    }
+
+    const pace = 60 / speedKmPerHour;
+
+    const minutes = String(Math.floor(pace)).padStart(2, "0");
+    const seconds = String(Math.round((pace - minutes) * 60)).padStart(2, "0");
+
+    return `${minutes}:${seconds}`;
+  }
+
   constructor(props) {
     super(props);
 
     this.handleDistanceChange = this.handleDistanceChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleSpeedChange = this.handleSpeedChange.bind(this);
+    this.handlePaceChange = this.handlePaceChange.bind(this);
   }
 
   handleDistanceChange(evt) {
@@ -24,6 +64,24 @@ class ConverterBar extends React.Component {
     const { onTimeChange } = this.props;
 
     onTimeChange(time);
+  }
+
+  handleSpeedChange(evt) {
+    const { onSpeedChange, onPaceChange } = this.props;
+
+    onSpeedChange(evt.target.value);
+
+    const p = ConverterBar.speedToPace(evt.target.value);
+    onPaceChange(p);
+  }
+
+  handlePaceChange(_event, pace) {
+    const { onPaceChange, onSpeedChange } = this.props;
+
+    onPaceChange(pace);
+
+    const s = ConverterBar.paceToSpeed(pace);
+    onSpeedChange(s);
   }
 
   onUpdate = (update) => {
@@ -39,14 +97,38 @@ class ConverterBar extends React.Component {
   };
 
   render() {
-    const { time, distance } = this.props;
+    const { speed, pace, time, distance } = this.props;
     const domain = [0, 42.2];
     const values = [distance];
 
     return (
       <div className="converter-bar">
         <div className="field">
+          <label htmlFor="speed-input">
+            Speed
+            <input
+              type="number"
+              step="0.1"
+              value={speed}
+              onChange={this.handleSpeedChange}
+            />
+          </label>
+        </div>
+
+        <div className="field">
+          <label htmlFor="pace-input">
+            Pace
+            <TimeField
+              value={pace}
+              onChange={this.handlePaceChange}
+              input={<input id="pace-input" type="text" pattern="\d*" />}
+            />
+          </label>
+        </div>
+
+        <div className="field">
           <label htmlFor="time-input">
+            Time
             <TimeField
               value={time}
               onChange={this.handleTimeChange}
@@ -58,6 +140,7 @@ class ConverterBar extends React.Component {
 
         <div className="field">
           <label htmlFor="distance-input">
+            Distance
             <input
               id="distance-input"
               type="number"
@@ -124,8 +207,7 @@ class ConverterBar extends React.Component {
 }
 
 class ResultTable extends React.Component {
-  calculateSpeedAndPace() {
-    const { time, distance } = this.props;
+  static calculateSpeedAndPace(time, distance) {
     const [hour, minute, second] = time.split(":");
 
     // Convert minutes and seconds to decimal values (30 min = 0.5 h)
@@ -160,8 +242,8 @@ class ResultTable extends React.Component {
   }
 
   render() {
-    const speedAndPace = this.calculateSpeedAndPace();
     const { time, distance } = this.props;
+    const speedAndPace = ResultTable.calculateSpeedAndPace(time, distance);
 
     return (
       <ul className="calc">
@@ -197,12 +279,16 @@ class PaceCalculator extends React.Component {
     super(props);
 
     this.state = {
-      distance: 7.5,
+      distance: 10.0,
       time: "00:45:00",
+      speed: 13.3,
+      pace: "04:30",
     };
 
     this.handleDistanceChange = this.handleDistanceChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleSpeedChange = this.handleSpeedChange.bind(this);
+    this.handlePaceChange = this.handlePaceChange.bind(this);
   }
 
   handleDistanceChange(newDistance) {
@@ -224,22 +310,38 @@ class PaceCalculator extends React.Component {
   }
 
   handleTimeChange(time) {
-    console.log(time);
     this.setState({ time });
   }
 
+  handleSpeedChange(speed) {
+    this.setState({ speed: Number(parseFloat(speed).toFixed(1)) });
+  }
+
+  handlePaceChange(pace) {
+    this.setState({ pace });
+  }
+
   render() {
-    const { distance, time } = this.state;
+    const { distance, time, speed, pace } = this.state;
 
     return (
       <div>
         <ConverterBar
           distance={distance}
           time={time}
+          speed={speed}
+          pace={pace}
           onDistanceChange={this.handleDistanceChange}
           onTimeChange={this.handleTimeChange}
+          onSpeedChange={this.handleSpeedChange}
+          onPaceChange={this.handlePaceChange}
         />
-        <ResultTable distance={distance} time={time} />
+        <ResultTable
+          distance={distance}
+          time={time}
+          speed={speed}
+          pace={pace}
+        />
       </div>
     );
   }
@@ -248,15 +350,23 @@ class PaceCalculator extends React.Component {
 ConverterBar.propTypes = {
   time: PropTypes.string,
   distance: PropTypes.number,
+  speed: PropTypes.number,
+  pace: PropTypes.string,
   onDistanceChange: PropTypes.func,
   onTimeChange: PropTypes.func,
+  onSpeedChange: PropTypes.func,
+  onPaceChange: PropTypes.func,
 };
 
 ConverterBar.defaultProps = {
   time: "",
   distance: 0.0,
+  speed: 0.0,
+  pace: "",
   onDistanceChange: () => undefined,
   onTimeChange: () => undefined,
+  onSpeedChange: () => undefined,
+  onPaceChange: () => undefined,
 };
 
 ResultTable.propTypes = {
