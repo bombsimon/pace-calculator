@@ -41,7 +41,11 @@ export default function ConverterBar({
 
   const handleDistanceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const num = parseFloat(e.target.value);
-    if (!isNaN(num)) {
+
+    if (isNaN(num)) {
+      // If we delete the whole input we must set the value to 0.
+      onDistanceChange(0);
+    } else {
       const rounded = Math.round(num * 100) / 100;
       onDistanceChange(rounded);
     }
