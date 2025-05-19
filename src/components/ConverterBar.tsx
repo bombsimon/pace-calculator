@@ -2,7 +2,6 @@ import React from "react";
 import TimeField from "react-simple-timefield";
 import { Slider, Rail, Handles, Tracks } from "react-compound-slider";
 import { SliderRail, Handle, Track } from "./Slider";
-import "../index.css";
 
 interface ConverterBarProps {
   distance: number;
