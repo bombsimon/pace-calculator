@@ -1,5 +1,10 @@
 # Pace Calculator
 
+> [!TIP]
+> Check out
+> [bombsimon/better-pace-calculator](https://github.com/bombsimon/better-pace-calculator)
+> instead!
+
 A small ReactJS application to calculate speed and pace based on time and
 distance.
 
